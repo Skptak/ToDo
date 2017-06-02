@@ -1,0 +1,42 @@
+
+buildscript {
+	ext {
+		springBootVersion = '1.5.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+plugins {
+	id 'fi.jasoft.plugin.vaadin' version '1.1.10'
+}
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+jar{
+	baseName = 'gs-accessing-data-mongodb'
+	version =  '0.1.0'
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+	compile('org.codehaus.groovy:groovy')
+	compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+	//compile group: 'org.springframework.data', name: 'spring-data-mongodb', version: '1.10.3.RELEASE'
+	//compile group: 'org.springframework.data', name: 'spring-data-commons-core', version: '1.4.1.RELEASE'
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+task wrapper(type: Wrapper) {
+	gradleVersion = '3.5'
+}

@@ -1,6 +1,8 @@
-package com.example.ToDo
+package com.example.ToDo.View
 
-
+import com.example.ToDo.Controller.NavigatorUI
+import com.example.ToDo.Model.User
+import com.example.ToDo.Model.UserRepository
 import com.vaadin.navigator.Navigator
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
@@ -12,14 +14,15 @@ import com.vaadin.ui.PasswordField
 import com.vaadin.ui.TextField
 import com.vaadin.ui.VerticalLayout
 
-
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
 
 
 /**
  * Created by Soren Ptak on 5/28/2017.
  */
 
-@SpringView(name = com.example.ToDo.CreateUserPage.VIEW_NAME)
+@SpringView(name = CreateUserPage.VIEW_NAME)
 class CreateUserPage extends VerticalLayout implements  View{
     private Navigator navigator
     private NavigatorUI navigatorUI
@@ -27,7 +30,6 @@ class CreateUserPage extends VerticalLayout implements  View{
 
     protected static final String VIEW_NAME = "CREATEUSERPAGE"
     CreateUserPage(NavigatorUI navUI){
-
         navigator = navUI.getNavigator()
         navigatorUI = navUI
         userRepository = navUI.getUserRepository()
@@ -62,7 +64,10 @@ class CreateUserPage extends VerticalLayout implements  View{
             }
             //If everything is fine, creates the user, adds to the repo, and move to the table
             else{
-                User myUser = new User(userField.getValue(),firstPass.getValue().hashCode())
+                MessageDigest digest = MessageDigest.getInstance("SHA-256")
+                byte[] hash = digest.digest(firstPass.getValue().getBytes())
+                String myString = new String(hash)
+                User myUser = new User(userField.getValue(),myString)
                 userRepository.insert(myUser)
                 UserPage myPage = new UserPage(navigatorUI,myUser)
                 navigator.addView("USERPAGE",myPage)

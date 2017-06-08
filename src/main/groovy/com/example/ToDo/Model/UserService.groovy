@@ -1,4 +1,4 @@
-package com.example.ToDo
+package com.example.ToDo.Model
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

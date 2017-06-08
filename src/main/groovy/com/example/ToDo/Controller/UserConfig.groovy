@@ -1,4 +1,4 @@
-package com.example.ToDo
+package com.example.ToDo.Controller
 
 import com.mongodb.Mongo
 import org.springframework.context.annotation.Bean
@@ -22,7 +22,7 @@ class UserConfig extends AbstractMongoConfiguration{
     }
     @Override
     Mongo mongo() throws Exception {
-        return new Mongo();
+        return new Mongo()
     }
 
     @Bean

@@ -1,4 +1,4 @@
-package com.example.ToDo
+package com.example.ToDo.Model
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.annotation.Id
@@ -13,12 +13,12 @@ class User{
     @Id
     private String id
     private String userName
-    private int hashedPassword
+    private String hashedPassword
     private HashMap<Integer,ArrayList<String>> userMap
     private ArrayList<String> ints
 
     private ArrayList<ArrayList<String>> strings
-    User(@Value("#root.ID")String ID, @Value("#root.password")int password){
+    User(@Value("#root.ID")String ID, @Value("#root.password")String password){
         userMap = new HashMap<Integer,ArrayList<String>>()
         ints = new ArrayList<String>()
         strings = new ArrayList<ArrayList<String>>()
@@ -74,7 +74,7 @@ class User{
     String getid() {
         return id
     }
-    int getHashedPass(){
+    String getHashedPass(){
         return(hashedPassword)
     }
 
